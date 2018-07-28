@@ -1,5 +1,6 @@
 #include "stick_sdk.h"
 #include <opencv2/opencv.hpp>
+#include <unistd.h>
 
 namespace
 {
@@ -28,6 +29,7 @@ namespace
             if(0 <= line && line < lines){
                 show_line(line);
             }
+            usleep(1000);
         }
     }
 }
