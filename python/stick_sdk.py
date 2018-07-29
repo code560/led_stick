@@ -16,15 +16,19 @@ class Stick():
     def stop_demo(self):
         self.lib.stop_led_demo()
 
+    # line(int): 0 - 1364
+    # pattern(char): 32 * 3(RGB)
     def write(self, line, pattern):
         self.lib.write_line(line, pattern)
 
+    # line(int): 0 - 1364
     def show(self, line):
         self.lib.show_line(line)
 
+    # return(ushort): x, y, z
     def accel(self):
         val = Triaxial()
-        self.lib.get_accel(val)
+        self.lib.get_accel(ctypes.byref(val))
         logger.d('get accel= {}'.format(val))
         return val.x, val.y, val.z
 
