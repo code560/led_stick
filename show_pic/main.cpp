@@ -29,7 +29,7 @@ namespace
             if(0 <= line && line < lines){
                 show_line(line);
             }
-            usleep(1000);
+            usleep(10000);
         }
     }
 }
