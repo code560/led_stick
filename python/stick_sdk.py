@@ -29,7 +29,7 @@ class Stick():
     def accel(self):
         val = Triaxial()
         self.lib.get_accel(ctypes.byref(val))
-        logger.d('get accel= {}'.format(val))
+        logger.d('get accel= ({},{},{})'.format(val.x, val.y, val.z))
         return val.x, val.y, val.z
 
     def gyro(self):
