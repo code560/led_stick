@@ -12,7 +12,6 @@ if __name__ == '__main__':
     while True:
         try:
             accel = s.accel()
-            print('accel({})'.format(type(accel)))
             time.sleep(0.2)
 
         except KeyboardInterrupt:

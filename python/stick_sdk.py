@@ -1,14 +1,13 @@
 # -*-coding:utf-8-*-
 
-import ctypes
+from ctypes import *
 import util.logger as logger
 
 
 class Stick():
 
     def __init__(self):
-        self.lib = ctypes.cdll.LoadLibrary('../lib/stick_sdk.so')
-        pass
+        self.lib = cdll.LoadLibrary('../lib/stick_sdk.so')
 
     def init_sdk(self):
         return self.lib.init_sdk() != 0
@@ -32,9 +31,11 @@ class Stick():
         # logger.d('get accel= ({},{},{})'.format(val.x, val.y, val.z))
         # return val.x, val.y, val.z
 
-        array = ctypes.c_ushort * 3
+        get_accel = self.lib.get_accel
+        get_accel.argtypes = POINTER(c_ushort)
+        array = c_ushort * 3
         val = array()
-        self.lib.get_accel(ctypes.pointer(val))
+        get_accel(POINTER(val))
         logger.d('get accel = ({},{},{})'.format(val[0], val[1], val[2]))
         return val
 
@@ -42,11 +43,11 @@ class Stick():
         pass
 
 
-class Triaxial(ctypes.Structure):
+class Triaxial(Structure):
     _axis_ = [
-        ('x', ctypes.c_ushort),
-        ('y', ctypes.c_ushort),
-        ('z', ctypes.c_ushort)]
+        ('x', c_ushort),
+        ('y', c_ushort),
+        ('z', c_ushort)]
 
     def __init__(self, x=0, y=0, z=0):
         self.x = x
