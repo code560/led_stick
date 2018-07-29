@@ -32,10 +32,10 @@ class Stick():
         # return val.x, val.y, val.z
 
         get_accel = self.lib.get_accel
-        get_accel.argtypes = POINTER(c_ushort)
+        get_accel.argtypes = [POINTER(c_ushort)]
         array = c_ushort * 3
         val = array()
-        get_accel(POINTER(val))
+        get_accel(byref(val))
         logger.d('get accel = ({},{},{})'.format(val[0], val[1], val[2]))
         return val
 
