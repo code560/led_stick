@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import time
-from ..stick_sdk import Stick
+from stick_sdk import Stick
 
 
 if __name__ == '__main__':
