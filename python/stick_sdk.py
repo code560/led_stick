@@ -1,7 +1,7 @@
 # -*-coding:utf-8-*-
 
 import ctypes
-from util.logger import logger
+import util.logger as logger
 
 
 class Stick():
