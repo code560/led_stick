@@ -7,12 +7,13 @@ from stick_sdk import Stick
 if __name__ == '__main__':
     s = Stick()
     s.init_sdk()
+    s.stop_demo()
 
     while True:
         try:
             accel = s.accel()
             print('accel({})'.format(type(accel)))
-            time.sleep(0.01)
+            time.sleep(0.2)
 
         except KeyboardInterrupt:
             break
