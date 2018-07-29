@@ -28,16 +28,14 @@ class Stick():
     # return(ushort): x, y, z
     def accel(self):
         # val = Triaxial()
-        # self.lib.get_accel(ctypes.byref(val._axis_))
+        # self.lib.get_accel(ctypes.byref(val))
         # logger.d('get accel= ({},{},{})'.format(val.x, val.y, val.z))
         # return val.x, val.y, val.z
 
-        USHORT_ARRAY = ctypes.c_ushort * 3
-        val = USHORT_ARRAY()
-        self.lib.get_accel(ctypes.byref(ctypes.pointer(val)))
+        val = ctypes.c_ushort * 3
+        self.lib.get_accel(ctypes.pointer(val))
         logger.d('get accel = ({},{},{})'.format(val[0], val[1], val[2]))
         return val
-
 
     def gyro(self):
         pass
