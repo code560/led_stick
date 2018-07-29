@@ -28,7 +28,7 @@ class Stick():
     # return(ushort): x, y, z
     def accel(self):
         val = Triaxial()
-        self.lib.get_accel(ctypes.byref(val))
+        self.lib.get_accel(ctypes.byref(val._axis_))
         logger.d('get accel= ({},{},{})'.format(val.x, val.y, val.z))
         return val.x, val.y, val.z
 
