@@ -15,8 +15,7 @@ if __name__ == '__main__':
             time.sleep(0.01)
 
         except KeyboardInterrupt:
-            return
+            break
 
         except Exception:
             raise
-
