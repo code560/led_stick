@@ -1,6 +1,6 @@
 #include "stick_sdk.h"
+#include <cmath>
 #include <opencv2/opencv.hpp>
-#include <unistd.h>
 
 namespace
 {
@@ -25,22 +25,23 @@ namespace
     for(;;){
       short a[3] = { 0 };
       get_accel(a);
+      double theta = std::atan2(a[1], a[0]);
       int line = (a[1] + 0x8000) * lines / 0x10000;
       show_line(line);
-      usleep(10000);
+      sleep(1);
     }
   }
 }
 
 int main(int argc, const char * argv[])
 {
-  if(argc < 2){
-    std::cerr << "input image file path." << std::endl;
-    return 1;
-  }
   if(!init_sdk()){
     std::cerr << "failed to init stick sdk." << std::endl;
     return 2;
+  }
+  if(argc < 2){
+    std::cerr << "input image file path." << std::endl;
+    return 1;
   }
   stop_led_demo();
   cv::Mat img = cv::imread(argv[1], 1);

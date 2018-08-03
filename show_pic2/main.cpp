@@ -1,13 +1,16 @@
 #include "stick_sdk.h"
-#include "mycamera.hpp"
+#include <opencv2/opencv.hpp>
 #include <thread>
 
 namespace
 {
-  bool s_button_event = false;
+  std::vector<std::string> const images{ "android.jpg", "doraemon.png", "dorami.jpg", "makey.jpg", "pikachu.png", "stitch.jpg" };
 
-  int sampling_button(int count)
-  {
+  int s_select = 0;
+  
+  bool s_button_event = false;
+  
+  int sampling_button(int count){
     int res = 0;
     for(int i = 0; i < count; ++i){
       res += get_button();
@@ -15,16 +18,17 @@ namespace
     }
     return res;
   }
-
   void button_monitor()
   {
     int const count = 10;
     while(count != sampling_button(count));
     while(0 != sampling_button(count));
+    s_select = (s_select + 1) % images.size();
     s_button_event = true;
     std::cerr << "button pushed!" << std::endl;
   }
 
+  
   void write(cv::Mat m, int lines)
   {
     cv::Mat img;
@@ -45,9 +49,9 @@ namespace
   {
     s_button_event = false;
     while(!s_button_event){
-      short gyro[3] = { 0 };
-      get_accel(gyro);
-      int line = (gyro[1] + 0x8000) * lines / 0x10000;
+      short a[3] = { 0 };
+      get_accel(a);
+      int line = (a[1] + 0x8000) * lines / 0x10000;
       show_line(line);
       sleep(1);
     }
@@ -56,38 +60,28 @@ namespace
 
 int main(int argc, const char * argv[])
 {
-  static_cast<void>(argc); // unused
-  static_cast<void>(argv); // unused
   if(!init_sdk()){
     std::cerr << "failed to init stick sdk." << std::endl;
-    return 1;
-  }
-  MyCamera cam(0);
-  if(!cam.isOpened()){
-    std::cerr << "failed to open camera device." << std::endl;
     return 2;
   }
+  std::thread th([]{
+    for(;;){
+    button_monitor();
+  }
+  });
   stop_led_demo();
-  button_monitor();
-  std::thread th([]{ for(;;) button_monitor(); });
   for(;;){
-    cv::Mat img;
-    for(int i = 0; i < 10; ++i){
-      cam >> img;
-      sleep(10);
-    }
+    cv::Mat img = cv::imread("../images/" + images[s_select], 1);
     if(img.empty()){
-      std::cerr << "failed to open image file." << std::endl;
-      continue;
+        std::cerr << "failed to open image file." << std::endl;
+      return 3;
     }
-    cv::flip(img.t(), img, 0);
+    cv::flip(img, img, 1);
     int const lines = 1364;
     std::cerr << "writing image..." << std::endl;
     write(img, lines);
     std::cerr << "complete!" << std::endl;
     show(lines);
   }
-  // unreachable.
-  th.join();
   return 0;
 }
