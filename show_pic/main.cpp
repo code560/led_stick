@@ -27,7 +27,7 @@ namespace
       get_accel(a);
       int line = (a[1] + 0x8000) * lines / 0x10000;
       show_line(line);
-      usleep(10000);
+      usleep(100);
     }
   }
 }
