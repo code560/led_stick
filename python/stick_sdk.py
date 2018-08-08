@@ -12,7 +12,7 @@ class Stick():
     lib = dirname + '/lib/stick_sdk.so'
 
     def __init__(self):
-        self.lib = Stick.lib
+        self.lib = cdll.LoadLibrary(Stick.lib)
         self.init_sdk()
 
     def init_sdk(self):
@@ -27,10 +27,17 @@ class Stick():
         size = len(pattern)
         carray = c_char * size
         array = [0 for i in range(size)]
-        for led in pattern:
-            array.append(self.__get_led_rgb(led))
+        for color in pattern:
+            array.append(self.__get_led_rgb(color))
         cpattern = carray(*array)
         self.lib.write_line(line, cpattern)
+
+    def __get_led_rgb(self, color):
+        k = 63.759
+        r = int(((color & 0xff0000) >> 16) / k)
+        g = int(((color & 0x00ff00) >> 8) / k)
+        b = int((color & 0x0000ff) / k)
+        return r,g,b
 
     # line(int): 0 - 1364
     def show(self, line):
