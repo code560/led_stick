@@ -1,13 +1,19 @@
 # -*-coding:utf-8-*-
 
+import os
 from ctypes import *
 import util.logger as logger
 
 
 class Stick():
 
+    dirname = os.path.dirname(__file__)
+    dirname = os.path.abspath(os.path.join(dirname, '..'))
+    lib = dirname + '/lib/stick_sdk.so'
+
     def __init__(self):
-        self.lib = cdll.LoadLibrary('../lib/stick_sdk.so')
+        self.lib = Stick.lib
+        self.init_sdk()
 
     def init_sdk(self):
         return self.lib.init_sdk() != 0
@@ -18,7 +24,13 @@ class Stick():
     # line(int): 0 - 1364
     # pattern(char): 32 * 3(RGB)
     def write(self, line, pattern):
-        self.lib.write_line(line, pattern)
+        size = len(pattern)
+        carray = c_char * size
+        array = [0 for i in range(size)]
+        for led in pattern:
+            array.append(self.__get_led_rgb(led))
+        cpattern = carray(*array)
+        self.lib.write_line(line, cpattern)
 
     # line(int): 0 - 1364
     def show(self, line):
@@ -26,29 +38,19 @@ class Stick():
 
     # return(ushort): x, y, z
     def accel(self):
-        # val = Triaxial()
-        # self.lib.get_accel(ctypes.byref(val))
-        # logger.d('get accel= ({},{},{})'.format(val.x, val.y, val.z))
-        # return val.x, val.y, val.z
-
-        get_accel = self.lib.get_accel
-        get_accel.argtypes = [POINTER(c_ushort * 6)]
-        val = POINTER(c_ushort * 6)()
-        get_accel(val)
+        val = self.__carray_ushort(3)
+        self.lib.get_accel(val)
         logger.d('get accel = ({},{},{})'.format(val[0], val[1], val[2]))
-        return val
+        return tuple(val)
 
     def gyro(self):
-        pass
+        val = self.__carray_ushort(3)
+        self.lib.get_gyro(val)
+        logger.d('get gyro = ({},{},{})'.format(val[0], val[1], val[2]))
+        return tuple(val)
 
+    def __carray_ushort(self, size):
+        carray = c_ushort * size
+        array = [0 for i in range(size)]
+        return carray(*array)
 
-class Triaxial(Structure):
-    _axis_ = [
-        ('x', c_ushort),
-        ('y', c_ushort),
-        ('z', c_ushort)]
-
-    def __init__(self, x=0, y=0, z=0):
-        self.x = x
-        self.y = y
-        self.z = z
