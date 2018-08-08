@@ -47,13 +47,11 @@ class Stick():
     def accel(self):
         val = self.__carray(3)
         self.lib.get_accel(val)
-        logger.d('get accel = ({},{},{})'.format(val[0], val[1], val[2]))
         return tuple(val)
 
     def gyro(self):
         val = self.__carray(3)
         self.lib.get_gyro(val)
-        logger.d('get gyro = ({},{},{})'.format(val[0], val[1], val[2]))
         return tuple(val)
 
     def __carray(self, size):
