@@ -45,19 +45,19 @@ class Stick():
 
     # return(ushort): x, y, z
     def accel(self):
-        val = self.__carray_ushort(3)
+        val = self.__carray(3)
         self.lib.get_accel(val)
         logger.d('get accel = ({},{},{})'.format(val[0], val[1], val[2]))
         return tuple(val)
 
     def gyro(self):
-        val = self.__carray_ushort(3)
+        val = self.__carray(3)
         self.lib.get_gyro(val)
         logger.d('get gyro = ({},{},{})'.format(val[0], val[1], val[2]))
         return tuple(val)
 
-    def __carray_ushort(self, size):
-        carray = c_ushort * size
+    def __carray(self, size):
+        carray = c_short * size
         array = [0 for i in range(size)]
         return carray(*array)
 
