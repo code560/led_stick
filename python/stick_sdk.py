@@ -37,7 +37,7 @@ class Stick():
         r = int(((color & 0xff0000) >> 16) / k)
         g = int(((color & 0x00ff00) >> 8) / k)
         b = int((color & 0x0000ff) / k)
-        return r,g,b
+        return r, g, b
 
     # line(int): 0 - 1364
     def show(self, line):
@@ -60,4 +60,3 @@ class Stick():
         carray = c_short * size
         array = [0 for i in range(size)]
         return carray(*array)
-
