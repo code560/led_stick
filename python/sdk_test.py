@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import time
+import util.logger as logger
 from stick_sdk import Stick
 from stick_sdk_t import STICK
 

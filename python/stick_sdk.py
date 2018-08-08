@@ -2,7 +2,6 @@
 
 import os
 from ctypes import *
-import util.logger as logger
 
 
 class Stick():
