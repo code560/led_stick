@@ -48,7 +48,7 @@ def show(stick, lines):
 
 if __name__ == '__main__':
     file = sys.argv[1]
-    im = Image.open(file)
+    im = Image.open(file).convert('RGB')
 
     s = Stick()
     s.init_sdk()
