@@ -14,7 +14,7 @@ def write(stick, im, lines):
     px = np.array(im)
     logger.d('px type={}, val={}'.format(type(px[0,0]), px[0,0]))
     for x in range(im.width):
-        pattern = [0] * len_
+        pattern = [0] * (len_ * 3)
         for y in range(im.height):
             r, g, b = get_led_rgb(px[x, y])
             pattern[y * 3] = r
