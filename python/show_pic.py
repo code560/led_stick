@@ -39,7 +39,7 @@ def show(stick, lines):
     while True:
         try:
             a = stick.accel()
-            line = (a[1] + 0x8000) * lines / 0x10000
+            line = (int(a[1]) + 0x8000) * lines / 0x10000
             logger.d('accel = {}, line = {}'.format(a, line))
             stick.show(line)
 
