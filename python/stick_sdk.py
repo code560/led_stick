@@ -28,11 +28,11 @@ class Stick():
         carray = c_char * size
         array = [0] * size
         for color in pattern:
-            array.append(Stick.get_led_rgb(color))
+            array.append(self.__get_led_rgb(color))
         cpattern = carray(*array)
         self.lib.write_line(line, cpattern)
 
-    def get_led_rgb(cls, color):
+    def __get_led_rgb(self, color):
         k = Stick.LED_FACTOR
         r = int(((color & 0xff0000) >> 16) / k)
         g = int(((color & 0x00ff00) >> 8) / k)
