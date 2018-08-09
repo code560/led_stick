@@ -28,7 +28,7 @@ class Stick():
         carray = c_char * size
         array = [0] * size
         for color in pattern:
-            array.append(self.__get_led_rgb(color))
+            array.extend(self.__get_led_rgb(color))
         cpattern = carray(*array)
         self.lib.write_line(line, cpattern)
 
