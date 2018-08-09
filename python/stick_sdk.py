@@ -26,7 +26,7 @@ class Stick():
     def write(self, line, pattern):
         size = len(pattern)
         carray = c_byte * size
-        array = [0] * size
+        array = []
         for color in pattern:
             array.extend(self.__get_led_rgb(color))
         cpattern = carray(*array)
