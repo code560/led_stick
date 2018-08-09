@@ -16,10 +16,13 @@ def write(stick, im, lines):
     for x in range(im.width):
         pattern = [0] * (len_ * 3)
         for y in range(im.height):
-            r, g, b = get_led_rgb(px[x, y])
-            pattern[y * 3] = r
-            pattern[y * 3 + 1] = g
-            pattern[y * 3 + 2] = b
+            try:
+                r, g, b = get_led_rgb(px[x, y])
+                pattern[y * 3] = r
+                pattern[y * 3 + 1] = g
+                pattern[y * 3 + 2] = b
+            except Exception:
+                logger.e('x={}, y={}'.format(x, y, r, g, b))
         stick.write(x, pattern)
 
 
