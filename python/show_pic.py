@@ -14,11 +14,11 @@ def write(stick, im, lines):
     px = np.array(im)
     logger.d('px type = {}, shape = {}'.format(type(px), px.shape))
     logger.d('im size = ({}, {})'.format(im.width, im.height))
-    for x in range(im.height):
+    for x in range(im.width):
         pattern = [0] * (len_ * 3)
-        for y in range(im.width):
+        for y in range(im.height):
             try:
-                r, g, b = get_led_rgb(px[x, y])
+                r, g, b = get_led_rgb(px[y, x])
                 pattern[y * 3] = r
                 pattern[y * 3 + 1] = g
                 pattern[y * 3 + 2] = b
