@@ -38,7 +38,7 @@ def get_led_rgb((r, g, b)):
 def show(stick, lines):
     while True:
         try:
-            a = stick.get_accel()
+            a = stick.accel()
             line = (a[1] + 0x8000) * lines / 0x10000
             stick.show(line)
 
