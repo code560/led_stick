@@ -22,7 +22,7 @@ def write(stick, im, lines):
         stick.write(x, pattern)
 
 
-def get_led_rgb(r, g, b):
+def get_led_rgb((r, g, b)):
     k = Stick.LED_FACTOR
     return int(r / k), \
         int(g / k), \
