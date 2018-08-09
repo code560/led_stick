@@ -5,6 +5,7 @@ from ctypes import *
 
 
 class Stick():
+    LED_FACTOR = 63.759
 
     dirname = os.path.dirname(__file__)
     dirname = os.path.abspath(os.path.join(dirname, '..'))
@@ -25,14 +26,14 @@ class Stick():
     def write(self, line, pattern):
         size = len(pattern)
         carray = c_char * size
-        array = [0 for i in range(size)]
+        array = [0] * size
         for color in pattern:
-            array.append(self.__get_led_rgb(color))
+            array.append(Stick.get_led_rgb(color))
         cpattern = carray(*array)
         self.lib.write_line(line, cpattern)
 
-    def __get_led_rgb(self, color):
-        k = 63.759
+    def get_led_rgb(cls, color):
+        k = Stick.LED_FACTOR
         r = int(((color & 0xff0000) >> 16) / k)
         g = int(((color & 0x00ff00) >> 8) / k)
         b = int((color & 0x0000ff) / k)
@@ -55,5 +56,5 @@ class Stick():
 
     def __carray(self, size):
         carray = c_short * size
-        array = [0 for i in range(size)]
+        array = [0] * size
         return carray(*array)
