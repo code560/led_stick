@@ -12,7 +12,7 @@ def write(stick, im, lines):
     len_ = 32
     im = im.resize((lines, len_), Image.BICUBIC)
     px = np.array(im)
-    logger.d('px type = {}, obj = {}'.format(type(px), px))
+    logger.d('px type = {}, shape = {}'.format(type(px), px.shape))
     logger.d('im size = ({}, {})'.format(im.width, im.height))
     for x in range(im.width):
         pattern = [0] * (len_ * 3)
