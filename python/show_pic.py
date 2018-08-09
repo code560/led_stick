@@ -12,8 +12,8 @@ def write(stick, im, lines):
     len_ = 32
     im = im.resize((lines, len_), Image.BICUBIC)
     px = np.array(im)
-    logger.d('px type = {}, shape = {}'.format(type(px), px.shape))
-    logger.d('im size = ({}, {})'.format(im.width, im.height))
+    # logger.d('px type = {}, shape = {}'.format(type(px), px.shape))
+    # logger.d('im size = ({}, {})'.format(im.width, im.height))
     for x in range(im.width):
         pattern = [0] * (len_ * 3)
         for y in range(im.height):
@@ -23,7 +23,7 @@ def write(stick, im, lines):
                 pattern[y * 3 + 1] = g
                 pattern[y * 3 + 2] = b
             except Exception:
-                logger.e('x={}, y={}'.format(x, y, r, g, b))
+                # logger.e('x={}, y={}'.format(x, y, r, g, b))
                 raise
         stick.write(x, pattern)
 
@@ -40,6 +40,7 @@ def show(stick, lines):
         try:
             a = stick.accel()
             line = (a[1] + 0x8000) * lines / 0x10000
+            logger.d('accel = {}, line = {}'.format(a, line))
             stick.show(line)
 
             time.sleep(0.1)
