@@ -23,6 +23,7 @@ def write(stick, im, lines):
                 pattern[y * 3 + 2] = b
             except Exception:
                 logger.e('x={}, y={}'.format(x, y, r, g, b))
+                raise
         stick.write(x, pattern)
 
 
