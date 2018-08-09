@@ -24,8 +24,8 @@ def write(stick, im, lines):
 
 def get_led_rgb(r, g, b):
     k = Stick.LED_FACTOR
-    return int(r / k),
-        int(g / k),
+    return int(r / k), \
+        int(g / k), \
         int(b / k)
 
 
