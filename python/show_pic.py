@@ -20,7 +20,7 @@ def write(stick, im, lines):
         pattern = [0] * (len_ * 3)
         for y in range(im.height):
             try:
-                r, g, b = get_led_rgb(px[x, y])
+                r, g, b = get_led_rgb(px[y, x])
                 pattern[y * 3] = r
                 pattern[y * 3 + 1] = g
                 pattern[y * 3 + 2] = b
