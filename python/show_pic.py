@@ -30,8 +30,8 @@ def write(stick, im, lines):
         #         raise
         # pattern = px[x].reshape(-1,)
         pattern = px[x]
-        stick.write(x, pattern)
         logger.d('write pattern line={}, pattern={}'.format(x, pattern))
+        stick.write(x, pattern)
 
 
 def get_led_rgb((r, g, b)):
