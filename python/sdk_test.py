@@ -10,14 +10,28 @@ if __name__ == '__main__':
     s.stop_demo()
 
     h = 32
-    s.write(0, [0x000000 for _ in range(h)])
-    s.write(1, [0xff0000 for _ in range(h)])
-    s.write(2, [0x00ff00 for _ in range(h)])
-    s.write(3, [0x0000ff for _ in range(h)])
-    s.write(4, [0xffff00 for _ in range(h)])
-    s.write(5, [0xff00ff for _ in range(h)])
-    s.write(6, [0x00ffff for _ in range(h)])
-    s.write(7, [0xffffff for _ in range(h)])
+    patterns = (
+        [0x000000 for _ in range(h)]
+        [0xff0000 for _ in range(h)]
+        [0x00ff00 for _ in range(h)]
+        [0x0000ff for _ in range(h)]
+        [0xffff00 for _ in range(h)]
+        [0xff00ff for _ in range(h)]
+        [0x00ffff for _ in range(h)]
+        [0xffffff for _ in range(h)]
+    )
+    for i in range(len(patterns)):
+        s.write(i, patterns[i])
+        logger.d('write pattern line={}, pattern={}'.format(i, patterns[i]))
+
+    # s.write(0, [0x000000 for _ in range(h)])
+    # s.write(1, [0xff0000 for _ in range(h)])
+    # s.write(2, [0x00ff00 for _ in range(h)])
+    # s.write(3, [0x0000ff for _ in range(h)])
+    # s.write(4, [0xffff00 for _ in range(h)])
+    # s.write(5, [0xff00ff for _ in range(h)])
+    # s.write(6, [0x00ffff for _ in range(h)])
+    # s.write(7, [0xffffff for _ in range(h)])
 
     while True:
         try:

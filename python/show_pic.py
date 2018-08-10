@@ -28,7 +28,7 @@ def write(stick, im, lines):
                 # logger.e('x={}, y={}'.format(x, y, r, g, b))
                 raise
         stick.write(x, pattern)
-        logger.d('write pattern line={}, pattern={}'.format(x, pattern))
+        # logger.d('write pattern line={}, pattern={}'.format(x, pattern))
 
 
 def get_led_rgb((r, g, b)):
