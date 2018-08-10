@@ -6,6 +6,8 @@ from ctypes import *
 
 class Stick():
     LED_FACTOR = 63.759
+    LED_HEIGHT = 32
+    LED_WIDTH = 1364
 
     dirname = os.path.dirname(__file__)
     dirname = os.path.abspath(os.path.join(dirname, '..'))

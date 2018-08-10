@@ -9,8 +9,10 @@ from stick_sdk import Stick
 
 
 def write(stick, im, lines):
-    len_ = 32
-    im = im.resize((lines, len_), Image.BICUBIC)
+    len_ = Stick.LED_HEIGHT
+    # im = im.resize((lines, len_), Image.BICUBIC)
+    size = lines, len_
+    im.thumbnail(size)
     px = np.array(im)
     # logger.d('px type = {}, shape = {}'.format(type(px), px.shape))
     # logger.d('im size = ({}, {})'.format(im.width, im.height))
@@ -36,10 +38,11 @@ def get_led_rgb((r, g, b)):
 
 
 def show(stick, lines):
+    logger.d('show lines({})'.format(lines))
     while True:
         try:
             a = stick.accel()
-            line = (int(a[1]) + 0x8000) * lines / 0x10000
+            line = (a[1] + 0x8000) * lines / 0x10000
             logger.d('accel = {}, line = {}'.format(a, line))
             stick.show(line)
 
@@ -61,7 +64,8 @@ if __name__ == '__main__':
     s.stop_demo()
 
     im = ImageOps.mirror(im)
-    lines = 1364
+    lines = Stick.LED_WIDTH
+    lines = int(round(im.height / Stick.LED_HEIGHT))
     logger.d('writing image...')
     write(s, im, lines)
     logger.d('complete!')

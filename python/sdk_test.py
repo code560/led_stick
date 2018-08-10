@@ -3,7 +3,6 @@
 import time
 import util.logger as logger
 from stick_sdk import Stick
-from stick_sdk_t import STICK
 
 if __name__ == '__main__':
     s = Stick()
@@ -24,7 +23,8 @@ if __name__ == '__main__':
         try:
             accel = s.accel()
             gyro = s.gyro()
-            logger.d('get accel = ({},{},{})'.format(accel[0], accel[1], accel[2]))
+            logger.d('get accel = ({},{},{})'.format(
+                accel[0], accel[1], accel[2]))
             logger.d('get gyro = ({},{},{})'.format(gyro[0], gyro[1], gyro[2]))
 
             line = (accel[1] + 0x8000) * 7 / 0x10000
