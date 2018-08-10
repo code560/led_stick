@@ -13,7 +13,7 @@ def write(stick, im, lines):
     size = lines, len_
     # im.thumbnail(size)
     im = im.resize(size)
-    px = np.asarray(im)[np.newaxis, :]
+    px = np.asarray(im)
     logger.d('px type = {}, shape = {}'.format(type(px), px.shape))
     # logger.d('im size = ({}, {})'.format(im.width, im.height))
     for x in range(im.width):
