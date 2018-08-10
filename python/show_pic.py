@@ -29,6 +29,7 @@ def write(stick, im, lines):
         #         logger.e('x={}, y={}'.format(x, y, r))
         #         raise
         # pattern = px[x].reshape(-1,)
+        pattern = px[x]
         stick.write(x, pattern)
         logger.d('write pattern line={}, pattern={}'.format(x, pattern))
 
