@@ -10,9 +10,9 @@ from stick_sdk import Stick
 
 def write(stick, im, lines):
     len_ = Stick.LED_HEIGHT
-    # im = im.resize((lines, len_), Image.BICUBIC)
     size = lines, len_
-    im.thumbnail(size)
+    # im.thumbnail(size)
+    im = im.resize(size)
     px = np.array(im)
     # logger.d('px type = {}, shape = {}'.format(type(px), px.shape))
     # logger.d('im size = ({}, {})'.format(im.width, im.height))
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     s.stop_demo()
 
     im = ImageOps.mirror(im)
-    lines = Stick.LED_WIDTH
+    # lines = Stick.LED_WIDTH
     lines = int(round(im.height / Stick.LED_HEIGHT))
     logger.d('writing image...')
     write(s, im, lines)
