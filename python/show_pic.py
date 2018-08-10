@@ -29,7 +29,7 @@ def write(stick, im, lines):
                 logger.e('x={}, y={}'.format(x, y, r))
                 raise
         stick.write(x, pattern)
-        logger.d('write pattern line={}, pattern={}'.format(x, pattern))
+        # logger.d('write pattern line={}, pattern={}'.format(x, pattern))
 
 
 def get_led_rgb((r, g, b)):
@@ -45,10 +45,10 @@ def show(stick, lines):
         try:
             a = stick.accel()
             line = (a[1] + 0x8000) * lines / 0x10000
-            logger.d('accel = {}, line = {}'.format(a, line))
             stick.show(line)
+            # logger.d('accel = {}, line = {}'.format(a, line))
 
-            time.sleep(0.1)
+            time.sleep(0.01)
 
         except KeyboardInterrupt:
             break
@@ -66,8 +66,8 @@ if __name__ == '__main__':
     s.stop_demo()
 
     im = ImageOps.mirror(im)
-    # lines = Stick.LED_WIDTH
-    lines = int(round(im.height / Stick.LED_HEIGHT))
+    lines = Stick.LED_WIDTH
+    # lines = int(round(im.height / Stick.LED_HEIGHT))
     logger.d('writing image...')
     write(s, im, lines)
     logger.d('complete!')
