@@ -32,11 +32,11 @@ def write(stick, im, lines):
         # logger.d('write pattern line={}, pattern={}'.format(x, pattern))
 
 
-def get_led_rgb((r, g, b)):
-    k = Stick.LED_FACTOR
-    return int(r / k), \
-        int(g / k), \
-        int(b / k)
+# def get_led_rgb((r, g, b)):
+#     k = Stick.LED_FACTOR
+#     return int(r / k), \
+#         int(g / k), \
+#         int(b / k)
 
 
 def show(stick, lines):

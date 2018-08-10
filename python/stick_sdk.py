@@ -32,6 +32,7 @@ class Stick():
         if len(pattern) > Stick.LED_HEIGHT:
             array = pattern
         else:
+            logger.d('conv color pattern to rgb pattern')
             for color in pattern:
                 array.extend(self.__get_led_rgb(color))
         carray = c_byte * len(array)
