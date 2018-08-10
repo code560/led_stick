@@ -13,7 +13,8 @@ def write(stick, im, lines):
     size = lines, len_
     # im.thumbnail(size)
     im = im.resize(size)
-    px = np.asarray(im).transpose((2,0,1))
+    px = np.array(im)
+    # px = np.array(im).transpose((2, 0, 1))
     logger.d('px type = {}, shape = {}'.format(type(px), px.shape))
     # logger.d('im size = ({}, {})'.format(im.width, im.height))
     for x in range(im.width):
