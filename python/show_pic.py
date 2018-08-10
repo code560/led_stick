@@ -20,8 +20,8 @@ def write(stick, im, lines):
         pattern = [0] * (len_ * 3)
         for y in range(im.height):
             try:
-                # r, g, b = get_led_rgb(px[y, x])
-                r, g, b = px[y, x]
+                r, g, b = get_led_rgb(px[y, x])
+                # r, g, b = px[y, x]
                 pattern[y * 3] = r
                 pattern[y * 3 + 1] = g
                 pattern[y * 3 + 2] = b
@@ -32,11 +32,11 @@ def write(stick, im, lines):
         # logger.d('write pattern line={}, pattern={}'.format(x, pattern))
 
 
-# def get_led_rgb((r, g, b)):
-#     k = Stick.LED_FACTOR
-#     return int(r / k), \
-#         int(g / k), \
-#         int(b / k)
+def get_led_rgb((r, g, b)):
+    k = Stick.LED_FACTOR
+    return int(r / k), \
+        int(g / k), \
+        int(b / k)
 
 
 def show(stick, lines):
