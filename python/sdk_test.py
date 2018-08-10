@@ -11,13 +11,13 @@ if __name__ == '__main__':
 
     h = 32
     patterns = (
-        [0x000000 for _ in range(h)]
-        [0xff0000 for _ in range(h)]
-        [0x00ff00 for _ in range(h)]
-        [0x0000ff for _ in range(h)]
-        [0xffff00 for _ in range(h)]
-        [0xff00ff for _ in range(h)]
-        [0x00ffff for _ in range(h)]
+        [0x000000 for _ in range(h)],
+        [0xff0000 for _ in range(h)],
+        [0x00ff00 for _ in range(h)],
+        [0x0000ff for _ in range(h)],
+        [0xffff00 for _ in range(h)],
+        [0xff00ff for _ in range(h)],
+        [0x00ffff for _ in range(h)],
         [0xffffff for _ in range(h)]
     )
     for i in range(len(patterns)):
