@@ -17,19 +17,20 @@ def write(stick, im, lines):
     # logger.d('px type = {}, shape = {}'.format(type(px), px.shape))
     # logger.d('im size = ({}, {})'.format(im.width, im.height))
     for x in range(im.width):
-        pattern = [0] * (len_ * 3)
-        for y in range(im.height):
-            try:
-                r, g, b = get_led_rgb(px[y, x])
-                # r, g, b = px[y, x]
-                pattern[y * 3] = r
-                pattern[y * 3 + 1] = g
-                pattern[y * 3 + 2] = b
-            except Exception:
-                logger.e('x={}, y={}'.format(x, y, r))
-                raise
+        # pattern = [0] * (len_ * 3)
+        # for y in range(im.height):
+        #     try:
+        #         r, g, b = get_led_rgb(px[y, x])
+        #         # r, g, b = px[y, x]
+        #         pattern[y * 3] = r
+        #         pattern[y * 3 + 1] = g
+        #         pattern[y * 3 + 2] = b
+        #     except Exception:
+        #         logger.e('x={}, y={}'.format(x, y, r))
+        #         raise
+        pattern = px[x].reshape(-1,)
         stick.write(x, pattern)
-        # logger.d('write pattern line={}, pattern={}'.format(x, pattern))
+        logger.d('write pattern line={}, pattern={}'.format(x, pattern))
 
 
 def get_led_rgb((r, g, b)):
@@ -46,8 +47,6 @@ def show(stick, lines):
             a = stick.accel()
             line = (a[1] + 0x8000) * lines / 0x10000
             stick.show(line)
-            # logger.d('accel = {}, line = {}'.format(a, line))
-
             time.sleep(0.01)
 
         except KeyboardInterrupt:
