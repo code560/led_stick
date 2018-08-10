@@ -2,7 +2,8 @@
 
 import os
 from ctypes import *
-import .util.logger as logger
+import util.logger as logger
+
 
 class Stick():
     # LED_FACTOR = 63.759
