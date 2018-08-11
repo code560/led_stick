@@ -10,31 +10,22 @@ from stick_sdk import Stick
 
 def write(stick, im, lines):
     len_ = Stick.LED_HEIGHT # led
-    len_size = len_ * 3     # led * RGB
     size = lines, len_      # led map size for FPGA
     # im.thumbnail(size)
     im = im.resize(size)
-    #px = np.array(im)
-    px = np.array(im).transpose((1,0,2))
-    logger.d('px type = {}, shape = {}'.format(type(px), px.shape))
-    logger.d('im size = ({}, {})'.format(im.width, im.height))
+    px = np.array(im)
     for x in range(im.width):
-        # pattern = [0] * (len_ * 3)
-        # for y in range(im.height):
-        #     try:
-        #         r, g, b = get_led_rgb(px[y, x])
-        #         # r, g, b = px[y, x]
-        #         pattern[y * 3] = r
-        #         pattern[y * 3 + 1] = g
-        #         pattern[y * 3 + 2] = b
-        #     except Exception:
-        #         logger.e('x={}, y={}'.format(x, y, r))
-        #         raise
-
-        # pattern = px[x].reshape(-1,)
-        # logger.d('px[x]=px[{}]={}'.format(x, px[x]))
-        pattern = np.ravel(px[x])
-        # logger.d('write pattern line={}, pattern={}'.format(x, pattern))
+        pattern = [0] * (len_ * 3)
+        for y in range(im.height):
+            try:
+                r, g, b = get_led_rgb(px[y, x])
+                # r, g, b = px[y, x]
+                pattern[y * 3] = r
+                pattern[y * 3 + 1] = g
+                pattern[y * 3 + 2] = b
+            except Exception:
+                logger.e('x={}, y={}'.format(x, y, r))
+                raise
         stick.write(x, pattern)
 
 
