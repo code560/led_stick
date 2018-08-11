@@ -24,7 +24,7 @@ def write(stick, im, lines):
                 pattern[y * 3 + 1] = g
                 pattern[y * 3 + 2] = b
             except Exception:
-                logger.e('x={}, y={}'.format(x, y, r))
+                logger.e('x={}, y={}'.format(x, y))
                 raise
         # pattern = np.ravel(px[x])
         stick.write(x, pattern)
