@@ -10,10 +10,10 @@ from stick_sdk import Stick
 
 def write(stick, im, lines):
     len_ = Stick.LED_HEIGHT  # led
-    size = lines, len_      # led map size for FPGA
+    size = lines, len_       # led map size for FPGA
     im = im.resize(size)
     px = np.array(im)
-    px = px // Stick.LED_FACTOR * Stick.LED_FACTOR // down color
+    px = px // Stick.LED_FACTOR * Stick.LED_FACTOR  # down color
     logger.d('px type={}, shape={}'.format(type(px), px.shape))
     for x in range(im.width):
         # pattern = [0] * (len_ * 3)
