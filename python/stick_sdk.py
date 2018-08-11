@@ -7,7 +7,6 @@ import util.logger as logger
 
 class Stick():
     LED_FACTOR = 63.759
-    # LED_FACTOR = 64
     LED_HEIGHT = 32
     LED_WIDTH = 1364
 
