@@ -9,8 +9,9 @@ from stick_sdk import Stick
 
 
 def write(stick, im, lines):
-    len_ = Stick.LED_HEIGHT
-    size = lines, len_
+    len_ = Stick.LED_HEIGHT # led
+    len_size = len_ * 3     # led * RGB
+    size = lines, len_      # led map size for FPGA
     # im.thumbnail(size)
     im = im.resize(size)
     px = np.array(im)
@@ -30,7 +31,7 @@ def write(stick, im, lines):
         #         logger.e('x={}, y={}'.format(x, y, r))
         #         raise
         # pattern = px[x].reshape(-1,)
-        pattern = np.reshape(px[x])
+        pattern = np.reshape(px[x], len_size)
         logger.d('write pattern line={}, pattern={}'.format(x, pattern))
         stick.write(x, pattern)
 
