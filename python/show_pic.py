@@ -14,6 +14,7 @@ def write(stick, im, lines):
     im = im.resize(size)
     px = np.array(im)
     px = px // Stick.LED_FACTOR * Stick.LED_FACTOR
+    logger.d('px type={}, shape={}'.format(type(px), px.shape))
     for x in range(im.width):
         pattern = [0] * (len_ * 3)
         for y in range(im.height):
