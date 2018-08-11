@@ -11,8 +11,8 @@ from stick_sdk import Stick
 def write(stick, im, lines):
     len_ = Stick.LED_HEIGHT # led
     size = lines, len_      # led map size for FPGA
-    im.thumbnail(size)
-    # im = im.resize(size)
+    im = im // Stick.LED_FACTOR * Stick.LED_FACTOR
+    im = im.resize(size)
     px = np.array(im)
     for x in range(im.width):
         pattern = [0] * (len_ * 3)
