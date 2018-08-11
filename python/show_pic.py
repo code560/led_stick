@@ -11,20 +11,21 @@ from stick_sdk import Stick
 def write(stick, im, lines):
     len_ = Stick.LED_HEIGHT # led
     size = lines, len_      # led map size for FPGA
-    im = im // Stick.LED_FACTOR * Stick.LED_FACTOR
     im = im.resize(size)
     px = np.array(im)
+    px = px // Stick.LED_FACTOR * Stick.LED_FACTOR
     for x in range(im.width):
-        pattern = [0] * (len_ * 3)
-        for y in range(im.height):
-            try:
-                r, g, b = get_led_rgb(px[y, x])
-                pattern[y * 3] = r
-                pattern[y * 3 + 1] = g
-                pattern[y * 3 + 2] = b
-            except Exception:
-                logger.e('x={}, y={}'.format(x, y, r))
-                raise
+        # pattern = [0] * (len_ * 3)
+        # for y in range(im.height):
+        #     try:
+        #         r, g, b = get_led_rgb(px[y, x])
+        #         pattern[y * 3] = r
+        #         pattern[y * 3 + 1] = g
+        #         pattern[y * 3 + 2] = b
+        #     except Exception:
+        #         logger.e('x={}, y={}'.format(x, y, r))
+        #         raise
+        pattern = np.ravel(px[x])
         stick.write(x, pattern)
 
 
