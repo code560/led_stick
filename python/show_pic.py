@@ -14,7 +14,7 @@ def write(stick, im, lines):
     # px = np.array(im)
     px = np.array(im).transpose((1, 0, 2))          # change array pos
     px = (px // Stick.LED_FACTOR * Stick.LED_FACTOR).astype(np.int)  # down color
-    logger.d('px type={}, shape={}'.format(type(px), px.shape))
+    # logger.d('px shape={}'.format(px.shape))
     for x in range(im.width):
         # pattern = [0] * (len_ * 3)
         # for y in range(im.height):
@@ -28,6 +28,7 @@ def write(stick, im, lines):
         #         raise
         pattern = np.ravel(px[x])
         stick.write(x, pattern)
+        logger.d('line={}, pattern={}'.format(x, pattern))
 
 
 def show(stick, lines):
