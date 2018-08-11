@@ -12,7 +12,7 @@ def write(stick, im, lines):
     len_ = Stick.LED_HEIGHT  # led
     size = lines, len_       # led map size for FPGA
     im = im.resize(size)
-    px = np.array(im)
+    px = np.array(im).transpose((1, 0, 2))          # change array pos
     px = px // Stick.LED_FACTOR * Stick.LED_FACTOR  # down color
     logger.d('px type={}, shape={}'.format(type(px), px.shape))
     for x in range(im.width):
