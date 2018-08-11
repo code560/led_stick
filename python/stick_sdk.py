@@ -6,8 +6,8 @@ import util.logger as logger
 
 
 class Stick():
-    # LED_FACTOR = 63.759
-    LED_FACTOR = 64
+    LED_FACTOR = 63.759
+    # LED_FACTOR = 64
     LED_HEIGHT = 32
     LED_WIDTH = 1364
 
@@ -18,6 +18,9 @@ class Stick():
     def __init__(self):
         self.lib = cdll.LoadLibrary(Stick.lib)
         self.init_sdk()
+
+        self.a = self.__carray(3)
+        self.g = self.__carray(3)
 
     def init_sdk(self):
         return self.lib.init_sdk() != 0
@@ -53,14 +56,12 @@ class Stick():
 
     # return(ushort): x, y, z
     def accel(self):
-        val = self.__carray(3)
-        self.lib.get_accel(val)
-        return tuple(val)
+        self.lib.get_accel(self.a)
+        return tuple(self.a)
 
     def gyro(self):
-        val = self.__carray(3)
-        self.lib.get_gyro(val)
-        return tuple(val)
+        self.lib.get_gyro(self.g)
+        return tuple(self.g)
 
     def __carray(self, size):
         carray = c_short * size
