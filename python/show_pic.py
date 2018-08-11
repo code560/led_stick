@@ -19,10 +19,10 @@ def write(stick, im, lines):
         for y in range(im.height):
             try:
                 # r, g, b = get_led_rgb(px[y, x])
-                r, g, b = int(px[x])
-                pattern[y * 3] = r
-                pattern[y * 3 + 1] = g
-                pattern[y * 3 + 2] = b
+                r, g, b = px[x]
+                pattern[y * 3] = int(r)
+                pattern[y * 3 + 1] = int(g)
+                pattern[y * 3 + 2] = int(b)
             except Exception:
                 logger.e('x={}, y={}'.format(x, y))
                 raise
