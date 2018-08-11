@@ -9,24 +9,24 @@ from stick_sdk import Stick
 
 
 def write(stick, im, lines):
-    len_ = Stick.LED_HEIGHT  # led
-    size = lines, len_       # led map size for FPGA
-    im = im.resize(size)
-    px = np.array(im).transpose((1, 0, 2))          # change array pos
+    len_ = Stick.LED_HEIGHT
+    im = im.resize((lines, len_))
+    px = np.array(im)
+    # px = np.array(im).transpose((1, 0, 2))          # change array pos
     px = px // Stick.LED_FACTOR * Stick.LED_FACTOR  # down color
     logger.d('px type={}, shape={}'.format(type(px), px.shape))
     for x in range(im.width):
-        # pattern = [0] * (len_ * 3)
-        # for y in range(im.height):
-        #     try:
-        #         r, g, b = px[y, x]
-        #         pattern[y * 3] = int(r)
-        #         pattern[y * 3 + 1] = int(g)
-        #         pattern[y * 3 + 2] = int(b)
-        #     except Exception:
-        #         logger.e('x={}, y={}'.format(x, y))
-        #         raise
-        pattern = np.ravel(px[x])
+        pattern = [0] * (len_ * 3)
+        for y in range(im.height):
+            try:
+                r, g, b = px[y, x]
+                pattern[y * 3] = int(r)
+                pattern[y * 3 + 1] = int(g)
+                pattern[y * 3 + 2] = int(b)
+            except Exception:
+                logger.e('x={}, y={}'.format(x, y))
+                raise
+        # pattern = np.ravel(px[x])
         stick.write(x, pattern)
 
 
